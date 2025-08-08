@@ -1,4 +1,4 @@
-const JWT = require('jsonwebtoken');
+import JWT from 'jsonwebtoken';
 const jwtAuth = (req, res, next) => {
     const token = req.cookies.token;
     if (!token) {
@@ -14,4 +14,4 @@ const jwtAuth = (req, res, next) => {
     next();
 }
 
-module.exports = jwtAuth;
+export default jwtAuth;
