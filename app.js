@@ -15,6 +15,10 @@ app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
 }))
+app.use(express.urlencoded({ extended: true }));
+app.get('/home',(req,res)=>{
+res.send("server running")
+})
 
 app.use('/api/v1/user', userRoutes);
 
