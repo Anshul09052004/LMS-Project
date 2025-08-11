@@ -51,6 +51,7 @@ const courseSchema = new Schema({
     },
     numberOfLectures: {
         type: Number,
+        default: 0,
         required: [true, "Number of Lectures is required"],
         trim: true,
     }
