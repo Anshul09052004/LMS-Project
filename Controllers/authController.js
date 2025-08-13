@@ -1,10 +1,10 @@
-import emailValidator from 'email-validator'
+
 import User from '../Models/user.model.js';
-import bcrypt from 'bcryptjs';
 import AppError from '../Utils/error.util.js';
 import cloudinary from 'cloudinary';
 import fs from 'fs';
 import sendEmail from '../Utils/sendEmail.js';
+
 
 
 const cookieOptions = {
@@ -82,7 +82,7 @@ const login = async (req, res, next) => {
             return next(AppError("All fields are required", 400));
         }
         const user = await User.findOne({ email }).select('+password');
-        if (!user || !user.comparePassword(password)) {
+        if (!user || !(awaituser.comparePassword(password))) {
             return next(AppError("Invalid email or password", 401));
         }
         const token = await user.jwtToken();
@@ -96,7 +96,7 @@ const login = async (req, res, next) => {
         });
     }
     catch (error) {
-        return next(AppError(error.message, 500));
+        return next(new AppError(error.message, 500));
 
     }
 
@@ -105,8 +105,9 @@ const logout = async (req, res) => {
     try {
         res.clearCookie('token');
         res.status(200).json({ message: "Logged out successfully" });
-    } catch (error) {
-        return res.status(500).json({ message: error.message || "Internal server error" });
+    } catch(error){
+        return next(new AppError(error.message, 500));
+
     }
 }
 
@@ -133,7 +134,7 @@ const getProfile = async (req, res) => {
 const forgotPassword = async (req, res, next) => {
     const { email } = req.body;
     if (!email) {
-        return next(AppError("Email is required", 400));
+        return next(new AppError("Email is required", 400));
     }
 
     const user = await User.findOne({ email });
@@ -163,7 +164,7 @@ const forgotPassword = async (req, res, next) => {
         user.forgotPasswordToken = undefined;
         user.forgotPasswordExpiry = undefined;
         await user.save();
-        return next(AppError("Failed to send password reset email", 500));
+        return next(new AppError("Failed to send password reset email", 500));
     }
 
 
@@ -193,7 +194,7 @@ const resetPassword = async (req, res) => {
         message: "Password reset successfully"
     })
 }
-const changePassword = async () => {
+const changePassword = async (req,res,next) => {
     const { oldPassword, newPassword } = req.body;
     const { id } = req.user;
 

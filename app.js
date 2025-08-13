@@ -5,7 +5,7 @@ import userRoutes from './Routes/userRoutes.js';
 import cors from 'cors';
 import morgan from 'morgan';
 import errorMiddleware from './Middlewares/error.middleware.js';
-import coursesModel from './Models/courses.model.js';
+import coursesRoutes from './Routes/coursesRoutes.js';
 const app=express();
 connectDb();
 
@@ -22,7 +22,7 @@ res.send("server running")
 })
 
 app.use('/api/v1/user', userRoutes);
-app.use('/api/v1/course', coursesModel);
+app.use('/api/v1/course', coursesRoutes);
 
 app.use(errorMiddleware);
 

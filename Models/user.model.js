@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { Schema } from 'mongoose';
 import crypto from 'node:crypto';
+import { subscribe } from 'node:diagnostics_channel';
 
 const userSchema = new Schema({
     fullName: {
@@ -40,6 +41,11 @@ const userSchema = new Schema({
         enum: ['USER', 'ADMIN'],
         default: 'USER',
     },
+    subscription: {
+        type: String,
+        enum: ["free", "premium"], // optional, tumhare app ke hisab se
+        default: "free"
+    },
     forgotPasswordToken: {
         type: String,
     },
@@ -63,7 +69,7 @@ userSchema.pre('save', async function (next) {
 userSchema.methods = {
     jwtToken() {
         return JWT.sign(
-            { id: this._id, email: this.email }, // payload
+            { id: this._id, email: this.email, role: this.role, subscription: this.subscription }, // payload
             process.env.JWT_SECRET,              // secret key
             { expiresIn: process.env.JWT_EXPIRY } // options
         );

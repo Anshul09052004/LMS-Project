@@ -7,6 +7,10 @@ const courseSchema = new Schema({
         minLength: [3, "Title must be at least 3 characters long"],
         trim: true,
     },
+    createdBy: {
+        type: String,
+        required: [true, "Creator is required"]
+    },
     description: {
         type: String,
         required: [true, "Description is required"],
@@ -17,11 +21,12 @@ const courseSchema = new Schema({
     thumbnail: {
         public_id: {
             type: String,
-            required: true,
+            required: [true, "Thumbnail is required"],
+        
         },
-        url: {
+        secure_url: {
             type: String,
-            required: true,
+            required: [true, "Thumbnail is required"],
         },
     },
     lectures: [{
@@ -44,7 +49,7 @@ const courseSchema = new Schema({
             },
         },
     }],
-    cataogary: {
+    category: {
         type: String,
         required: [true, "Cataogary is required"],
         trim: true,
