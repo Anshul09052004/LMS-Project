@@ -1,0 +1,70 @@
+# Node modules (Backend and Frontend)
+node_modules/
+client/node_modules/
+
+# Environment variables
+.env
+client/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+/dist
+/build
+client/build
+client/dist
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Optional npm cache directory
+.npm
+
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage reports
+coverage/
+client/coverage/
+
+# ESLint cache
+.eslintcache
+
+# React testing artifacts
+client/src/setupTests.js.snap
+
+# MongoDB dump
+dump/
+
+# Logs folder (if you store logs)
+logs/
+*.log
+
+# PM2 logs
+pids
+*.pid
+*.seed
+
+# Misc
+*.tgz
+*.zip
+
+# Build artifacts from webpack/babel
+.cache/
+.next/
+out/
+
